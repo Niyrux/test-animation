@@ -1,30 +1,26 @@
-document.addEventListener('scroll', function () {
-    const sections = document.querySelectorAll('.section');
-    const windowHeight = window.innerHeight;
+var projects = document.querySelectorAll('.box');
 
-    sections.forEach(section => {
-        const rect = section.getBoundingClientRect();
-        const sectionHeight = rect.height;
-        const sectionTop = rect.top;
+var options = {
+    threshold: 0.7
+};
 
-        if (sectionTop <= windowHeight && rect.bottom >= 0) {
-            let progress = (windowHeight - sectionTop) / (windowHeight + sectionHeight);
-            let totalProgress = progress * 4; // 4 stages of the border
+var observer = new IntersectionObserver(function (entries, observer) {
+    entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('active');
 
-            let topProgress = Math.min(totalProgress, 1);
-            let rightProgress = Math.min(Math.max(totalProgress - 1, 0), 1);
-            let bottomProgress = Math.min(Math.max(totalProgress - 2, 0), 1);
-            let leftProgress = Math.min(Math.max(totalProgress - 3, 0), 1);
+            var topOffset = entry.target.getBoundingClientRect().top + window.pageYOffset;
 
-            section.style.setProperty('--border-progress-top', `${topProgress * 100}%`);
-            section.style.setProperty('--border-progress-right', `${rightProgress * 100}%`);
-            section.style.setProperty('--border-progress-bottom', `${bottomProgress * 100}%`);
-            section.style.setProperty('--border-progress-left', `${leftProgress * 100}%`);
+            window.scrollTo({
+                top: topOffset,
+                behavior: 'smooth'
+            });
         } else {
-            section.style.setProperty('--border-progress-top', '0%');
-            section.style.setProperty('--border-progress-right', '0%');
-            section.style.setProperty('--border-progress-bottom', '0%');
-            section.style.setProperty('--border-progress-left', '0%');
+            entry.target.classList.remove('active');
         }
     });
+}, options);
+
+projects.forEach(function (project) {
+    observer.observe(project);
 });

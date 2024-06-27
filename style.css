@@ -121,3 +121,8 @@ body {
     height: 0;
     transition-delay: calc(var(--transition_duration) * 0);
 }
+
+.box.active {
+
+
+}
