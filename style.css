@@ -1,0 +1,125 @@
+
+:root {
+    --width: 100vh;
+    --height: 100vh;
+    --primary_color: #3084AC;
+    --border_color-hover: #e6f5fa; 
+    --stroke: 30px;
+    --border: 30px solid #276686; 
+    --transition_duration: 100ms;
+    --pipeline_width: calc(100vh + 30px);
+    --pipeline_height: calc(100vh + 30px);
+    --pipes: 4;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: black;
+}
+
+.box {
+    width: var(--width);
+    height: var(--height);
+    background: var(--primary_color);
+    margin: auto;
+    border: var(--border);
+    text-align: center;
+    color: #fff;
+    position: relative;
+    top: 50px;
+    cursor: pointer;
+    transition: calc(var(--transition_duration) * var(--pipes) + var(--transition_duration)) ease;
+}
+
+.box::before,
+.box::after,
+.box-inner::before,
+.box-inner::after {
+    content: '';
+    position: absolute;
+    background: #fff;
+    transition: width var(--transition_duration) ease, height var(--transition_duration) ease;
+}
+
+/* Top Border Animation */
+.box::before {
+    width: 0;
+    height: var(--stroke);
+    top: calc(-1 * var(--stroke));
+    left: calc(-1 * var(--stroke));
+    transition-delay: calc(var(--transition_duration) * 0);
+}
+
+/* Right Border Animation */
+.box::after {
+    width: var(--stroke);
+    height: 0;
+    top: calc(-1 * var(--stroke));
+    right: calc(-1 * var(--stroke));
+    transition-delay: calc(var(--transition_duration) * 1);
+}
+
+
+.box-inner::after {
+    width: 0;
+    height: var(--stroke);
+    bottom: calc(-1 * var(--stroke));
+    right: calc(-1 * var(--stroke));
+    transition-delay: calc(var(--transition_duration) * 2);
+}
+
+
+.box-inner::before {
+    width: var(--stroke);
+    height: 0;
+    bottom: calc(-1 * var(--stroke));
+    left: calc(-1 * var(--stroke));
+    transition-delay: calc(var(--transition_duration) * 3);
+}
+
+.box:hover {
+    border-color: transparent;
+    background: #1c4e64; 
+}
+
+.box:hover::before {
+    width: var(--pipeline_width);
+    transition-delay: calc(var(--transition_duration) * 0);
+}
+
+.box:hover::after {
+    height: var(--pipeline_height);
+    transition-delay: calc(var(--transition_duration) * 1);
+}
+
+.box:hover .box-inner::after {
+    width: var(--pipeline_width);
+    transition-delay: calc(var(--transition_duration) * 2);
+}
+
+.box:hover .box-inner::before {
+    height: var(--pipeline_height);
+    transition-delay: calc(var(--transition_duration) * 3);
+}
+
+/* Reverse Animation */
+.box:not(:hover)::before {
+    width: 0;
+    transition-delay: calc(var(--transition_duration) * 3);
+}
+
+.box:not(:hover)::after {
+    height: 0;
+    transition-delay: calc(var(--transition_duration) * 2);
+}
+
+.box:not(:hover) .box-inner::after {
+    width: 0;
+    transition-delay: calc(var(--transition_duration) * 1);
+}
+
+.box:not(:hover) .box-inner::before {
+    height: 0;
+    transition-delay: calc(var(--transition_duration) * 0);
+}
