@@ -1,14 +1,13 @@
-
 :root {
     --width: 100vh;
     --height: 100vh;
     --primary_color: #3084AC;
-    --border_color-hover: #e6f5fa; 
+    --border_color-hover: #e6f5fa;
     --stroke: 30px;
-    --border: 30px solid #276686; 
+    --border: 30px solid #276686;
     --transition_duration: 100ms;
-    --pipeline_width: calc(100vh + 30px);
-    --pipeline_height: calc(100vh + 30px);
+    --pipeline_width: calc(100% + 30px);
+    --pipeline_height: calc(100% + 30px);
     --pipes: 4;
 }
 
@@ -19,10 +18,9 @@ body {
 }
 
 .box {
-    width: var(--width);
-    height: var(--height);
+    box-sizing: border-box;
+    height: 100vh;
     background: var(--primary_color);
-    margin: auto;
     border: var(--border);
     text-align: center;
     color: #fff;
@@ -80,7 +78,7 @@ body {
 
 .box:hover {
     border-color: transparent;
-    background: #1c4e64; 
+    background: #1c4e64;
 }
 
 .box:hover::before {
